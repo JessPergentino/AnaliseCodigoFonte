@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class Leitor {
 	
-	public static final String PATTERCLASS = ".*public class.*";
+	public static final String PATTERCLASS = "(public class|private class|protected class).*";
 	public static final String PATTERMETHOD = "() {$";
 			
 	
@@ -43,6 +43,6 @@ public class Leitor {
 		
 		System.out.println("QTD. Linhas: " + qtdLinhas);
 		System.out.println("QTD. Classes: " + qtdClass);
-		System.out.println("QTD. Métodos: " + qtdMethods);
+		System.out.println("QTD. MÃ©todos: " + qtdMethods);
 	}
 }
