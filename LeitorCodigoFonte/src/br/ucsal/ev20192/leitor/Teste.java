@@ -7,6 +7,10 @@ public class Teste {
 	private String var3;
 	private String var4;
 
+	private String teste() {
+	return "Teste";
+	}
+
 	public String getVar1() {
 		return var1;
 	}
