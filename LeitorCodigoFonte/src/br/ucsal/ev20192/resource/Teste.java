@@ -1,4 +1,4 @@
-package br.ucsal.ev20192.leitor;
+package br.ucsal.ev20192.resource;
 
 public class Teste {
 
