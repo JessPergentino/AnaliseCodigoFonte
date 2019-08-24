@@ -1,4 +1,4 @@
-package br.ucsal.ev20192.leitor.test;
+package br.ucsal.ev20192.tests;
 
 import static org.junit.Assert.*;
 
@@ -9,8 +9,8 @@ import java.io.FileReader;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.ucsal.ev20192.leitor.domain.Leitor;
-import br.ucsal.ev20192.leitor.domain.Resultado;
+import br.ucsal.ev20192.domain.leitor.Leitor;
+import br.ucsal.ev20192.domain.leitor.Resultado;
 
 public class LeitorTeste {
 

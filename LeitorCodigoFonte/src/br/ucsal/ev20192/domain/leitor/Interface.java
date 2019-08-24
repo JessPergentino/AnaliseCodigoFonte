@@ -1,4 +1,4 @@
-package br.ucsal.ev20192.leitor.domain;
+package br.ucsal.ev20192.domain.leitor;
 
 import java.util.Scanner;
 

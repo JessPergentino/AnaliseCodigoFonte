@@ -1,17 +1,16 @@
-package br.ucsal.ev20192.leitor;
+package br.ucsal.ev20192.domain;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import br.ucsal.ev20192.leitor.domain.Interface;
-import br.ucsal.ev20192.leitor.domain.Leitor;
-import br.ucsal.ev20192.leitor.domain.Resultado;
+import br.ucsal.ev20192.domain.leitor.Interface;
+import br.ucsal.ev20192.domain.leitor.Leitor;
+import br.ucsal.ev20192.domain.leitor.Resultado;
 
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException {
-
 		String caminho = Interface.menu();
 		Resultado result = Leitor.lerArquivo(new BufferedReader(new FileReader(caminho)));
 		Interface.imprimirResultado(result);
