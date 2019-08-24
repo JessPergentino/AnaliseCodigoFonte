@@ -1,2 +1,2 @@
 # AnaliseCodigoFonte
-Trabalha da matéria de Evolução de Software
+Trabalho da matéria de Evolução de Software
