@@ -1,4 +1,4 @@
-package br.ucsal.ev20192.domain;
+package br.ucsal.ev20192;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
