@@ -1,4 +1,4 @@
-package br.ucsal.ev20192.domain.leitor;
+package br.ucsal.ev20192.leitor;
 
 public class Resultado {
 

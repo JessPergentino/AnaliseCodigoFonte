@@ -4,9 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import br.ucsal.ev20192.domain.leitor.Interface;
-import br.ucsal.ev20192.domain.leitor.Leitor;
-import br.ucsal.ev20192.domain.leitor.Resultado;
+import br.ucsal.ev20192.leitor.Interface;
+import br.ucsal.ev20192.leitor.Leitor;
+import br.ucsal.ev20192.leitor.Resultado;
 
 public class Main {
 
@@ -15,5 +15,4 @@ public class Main {
 		Resultado result = Leitor.lerArquivo(new BufferedReader(new FileReader(caminho)));
 		Interface.imprimirResultado(result);
 	}
-
 }

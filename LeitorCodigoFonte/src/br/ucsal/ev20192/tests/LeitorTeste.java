@@ -9,29 +9,52 @@ import java.io.FileReader;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.ucsal.ev20192.domain.leitor.Leitor;
-import br.ucsal.ev20192.domain.leitor.Resultado;
+import br.ucsal.ev20192.leitor.Leitor;
+import br.ucsal.ev20192.leitor.Resultado;
 
 public class LeitorTeste {
 
-	BufferedReader codigo;
+	BufferedReader codigoArquivo1;
+	BufferedReader codigoArquivo2;
 
 	@Before
 	public void setUp() throws FileNotFoundException {
-		String caminho = "C:\\Users\\jessi\\git\\AnaliseCodigoFonte\\LeitorCodigoFonte\\src\\br\\ucsal\\ev20192\\resource\\Teste.java";
-		codigo = new BufferedReader(new BufferedReader(new FileReader(caminho)));
+		String caminhoArquivo1 = "C:\\Users\\jessi\\git\\AnaliseCodigoFonte\\LeitorCodigoFonte\\src\\br\\ucsal\\ev20192\\resource\\Arquivo1.java";
+		codigoArquivo1 = new BufferedReader(new BufferedReader(new FileReader(caminhoArquivo1)));
+
+		String caminhoArquivo2 = "C:\\Users\\jessi\\git\\AnaliseCodigoFonte\\LeitorCodigoFonte\\src\\br\\ucsal\\ev20192\\resource\\Arquivo2.java";
+		codigoArquivo2 = new BufferedReader(new BufferedReader(new FileReader(caminhoArquivo2)));
 	}
 
 	@Test
-	public void testLerArquivo() {
+	public void testLerArquivo1() {
 		// Valor Esperado
-		Resultado resultadoEsperado = new Resultado(46, 1, 9);
+		Integer locEsperado = 113;
+		Integer qtdClassesEsperado = 1;
+		Integer qtdMetodosEsperados = 20;
 
 		// Execução do método LerArquivo
-		Resultado resultadoRetornado = Leitor.lerArquivo(codigo);
+		Resultado resultadoRetornado = Leitor.lerArquivo(codigoArquivo1);
 
 		// Comparação do valor retornado com o esperado
-		assertEquals(resultadoEsperado, resultadoRetornado);
+		assertEquals(locEsperado, resultadoRetornado.getLoc());
+		assertEquals(qtdClassesEsperado, resultadoRetornado.getQtdClass());
+		assertEquals(qtdMetodosEsperados, resultadoRetornado.getQtdMetodos());
 	}
 
+	@Test
+	public void testLerArquivo2() {
+		// Valor Esperado
+		Integer locEsperado = 69;
+		Integer qtdClassesEsperado = 2;
+		Integer qtdMetodosEsperados = 2;
+
+		// Execução do método LerArquivo
+		Resultado resultadoRetornado = Leitor.lerArquivo(codigoArquivo2);
+
+		// Comparação do valor retornado com o esperado
+		assertEquals(locEsperado, resultadoRetornado.getLoc());
+		assertEquals(qtdClassesEsperado, resultadoRetornado.getQtdClass());
+		assertEquals(qtdMetodosEsperados, resultadoRetornado.getQtdMetodos());
+	}
 }
