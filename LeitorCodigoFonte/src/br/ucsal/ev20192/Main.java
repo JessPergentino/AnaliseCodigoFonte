@@ -1,6 +1,7 @@
 package br.ucsal.ev20192;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
@@ -12,7 +13,10 @@ public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		String caminho = Interface.menu();
-		Resultado result = Leitor.lerArquivo(new BufferedReader(new FileReader(caminho)));
-		Interface.imprimirResultado(result);
+		File[] files = Leitor.listarDiriretorios(new File(caminho));
+		for (int i = 0; i < files.length; i++) {
+			Resultado result = Leitor.lerArquivo(new BufferedReader(new FileReader(files[i])));
+			Interface.imprimirResultado(result);
+		}
 	}
 }
