@@ -19,10 +19,10 @@ public class LeitorTeste {
 
 	@Before
 	public void setUp() throws FileNotFoundException {
-		String caminhoArquivo1 = "C:\\Users\\100912556\\git\\AnaliseCodigoFonte\\LeitorCodigoFonte\\src\\br\\ucsal\\ev20192\\resource\\Arquivo1.java";
+		String caminhoArquivo1 = "C:\\Users\\jessi\\git\\AnaliseCodigoFonte\\LeitorCodigoFonte\\src\\br\\ucsal\\ev20192\\resource\\Arquivo1.java";
 		codigoArquivo1 = new BufferedReader(new BufferedReader(new FileReader(caminhoArquivo1)));
 
-		String caminhoArquivo2 = "C:\\Users\\100912556\\git\\AnaliseCodigoFonte\\LeitorCodigoFonte\\src\\br\\ucsal\\ev20192\\resource\\Arquivo2.java";
+		String caminhoArquivo2 = "C:\\Users\\jessi\\git\\AnaliseCodigoFonte\\LeitorCodigoFonte\\src\\br\\ucsal\\ev20192\\resource\\Arquivo2.java";
 		codigoArquivo2 = new BufferedReader(new BufferedReader(new FileReader(caminhoArquivo2)));
 	}
 

@@ -8,14 +8,8 @@ import java.util.List;
 
 public class Leitor {
 
-	// "(public|private|protected)\s()"
-
 	public static final String PATTERCLASS = "(class|public class|private class|protected class).*";
-	public static final String PATTERMETHOD = ".*(public String|public void|public Integer|public int|public Double|public double|public Float|public float|public Boolean|public boolean|"
-			+ "private String|private void|private Integer|private int|private Double|private double|private Float|private float|private Boolean|private boolean|"
-			+ "public static String|public static void|public static Integer|public static int|public static Double|public static double|public static Float|public static float|public static Boolean|public static boolean|"
-			+ "private static String|private static void|private static Integer|private static int|private static Double|private static double|private Float|private static float|private static Boolean|private static boolean).*"
-			+ "(\\)\\ \\{)$";
+	public static final String PATTERMETHOD = ".*(public|private|protected).*\\)\\ \\{";
 
 	private Leitor() {
 	}
