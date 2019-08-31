@@ -12,8 +12,7 @@ public class Arquivo1 implements Comparable<Arquivo1> {
 	private String altitude;
 	private String url;
 	
-	public Arquivo1(int idCircuito, String refCircuito, String nomeCircuito, String local, String pais, String latitude,
-			String longitude, String altitude, String url) {
+	public Arquivo1(int idCircuito, String refCircuito, String nomeCircuito, String local, String pais, String latitude, String longitude, String altitude, String url) {
 		this.idCircuito = idCircuito;
 		this.refCircuito = refCircuito;
 		this.nomeCircuito = nomeCircuito;

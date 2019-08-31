@@ -14,7 +14,7 @@ public class Arquivo2 {
 	public static void main(String[] args) {
 		List<Arquivo1> circuitos = new ArrayList<Arquivo1>();
 		File arquivo = new File("circuits.csv");
-	
+
 		try {
 			FileInputStream fileIntuptStream = new FileInputStream(arquivo);
 			InputStreamReader inputStreamReader = new InputStreamReader(fileIntuptStream);
@@ -27,24 +27,24 @@ public class Arquivo2 {
 						array[5], array[6], array[7], array[8]);
 				circuitos.add(circuito);
 			}
-		
+
 			bufferReader.close();
-		
+
 		} catch (Exception e) {
 		}
-		
+
 		System.out.println(circuitos.size());
 		for (Arquivo1 circuito : circuitos) {
 			System.out.println(circuito);
 		}
 		System.out.println();
-		
+
 		Collections.sort(circuitos, Collections.reverseOrder());
 		for (Arquivo1 circuito : circuitos) {
 			System.out.println(circuito);
 		}
 		System.out.println();
-		
+
 		Compare c = new Compare();
 
 		Collections.sort(circuitos, c);

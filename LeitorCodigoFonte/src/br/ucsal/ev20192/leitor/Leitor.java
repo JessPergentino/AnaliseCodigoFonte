@@ -10,6 +10,7 @@ public class Leitor {
 
 	public static final String PATTERCLASS = "(class|public class|private class|protected class).*";
 	public static final String PATTERMETHOD = ".*(public|private|protected).*\\)\\ \\{";
+	public static final String PATTERLINE = ".*[\\S]";
 
 	private Leitor() {
 	}
@@ -27,10 +28,10 @@ public class Leitor {
 				if (linha.matches(PATTERMETHOD)) {
 					result.setQtdMetodos();
 				}
-				if (linha.matches(".*[\\S]")) {
+				if (linha.matches(PATTERLINE)) {
 					result.setLoc();
 				}
-				
+
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -57,10 +58,27 @@ public class Leitor {
 		}
 
 		// Transforma um Vector em um File[]:
+		return transformarLista(enc);
+	}
+
+	private static File[] transformarLista(List<File> enc) {
 		File[] encontrados = new File[enc.size()];
 		for (int i = 0; i < enc.size(); i++) {
 			encontrados[i] = enc.get(i);
 		}
 		return encontrados;
 	}
+
+	public static File[] filtrarDirertorios(File[] listaArquivos) {
+		List<File> arquivos = new ArrayList<>();
+
+		for (int i = 0; i < listaArquivos.length; i++) {
+			if (listaArquivos[i].getName().endsWith(".java")) {
+				arquivos.add(listaArquivos[i]);
+			}
+		}
+
+		return transformarLista(arquivos);
+	}
+
 }

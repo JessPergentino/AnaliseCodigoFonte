@@ -3,6 +3,7 @@ package br.ucsal.ev20192.tests;
 import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
@@ -16,6 +17,7 @@ public class LeitorTeste {
 
 	BufferedReader codigoArquivo1;
 	BufferedReader codigoArquivo2;
+	File dataSet;
 
 	@Before
 	public void setUp() throws FileNotFoundException {
@@ -24,14 +26,17 @@ public class LeitorTeste {
 
 		String caminhoArquivo2 = "C:\\Users\\jessi\\git\\AnaliseCodigoFonte\\LeitorCodigoFonte\\src\\br\\ucsal\\ev20192\\resource\\Arquivo2.java";
 		codigoArquivo2 = new BufferedReader(new BufferedReader(new FileReader(caminhoArquivo2)));
+		
+		String caminhoDataset = "C:\\Users\\Public\\Documents\\Dataset";
+		dataSet = new File(caminhoDataset);
 	}
 
 	@Test
 	public void testLerArquivo1() {
 		// Valor Esperado
-		Integer locEsperado = 88;
+		Integer locEsperado = 87;
 		Integer qtdClassesEsperado = 1;
-		Integer qtdMetodosEsperados = 20;
+		Integer qtdMetodosEsperados = 21;
 
 		// Execução do método LerArquivo
 		Resultado resultadoRetornado = Leitor.lerArquivo(codigoArquivo1);
@@ -56,5 +61,29 @@ public class LeitorTeste {
 		assertEquals(locEsperado, resultadoRetornado.getLoc());
 		assertEquals(qtdClassesEsperado, resultadoRetornado.getQtdClass());
 		assertEquals(qtdMetodosEsperados, resultadoRetornado.getQtdMetodos());
+	}
+	
+	@Test
+	public void testListarDiretorios() {
+		// Valor Esperado
+		int totalArquivos = 163;
+
+		// Execução do método LerArquivo
+		int resultadoRetornado = Leitor.listarDiriretorios(dataSet).length;
+
+		// Comparação do valor retornado com o esperado
+		assertEquals(totalArquivos, resultadoRetornado);
+	}
+	
+	@Test
+	public void testListarDiretoriosFiltrados() {
+		// Valor Esperado
+		int totalArquivos = 162;
+
+		// Execução do método LerArquivo
+		int resultadoRetornado = Leitor.filtrarDirertorios(Leitor.listarDiriretorios(dataSet)).length;
+
+		// Comparação do valor retornado com o esperado
+		assertEquals(totalArquivos, resultadoRetornado);
 	}
 }
