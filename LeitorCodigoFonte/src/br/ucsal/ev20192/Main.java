@@ -16,7 +16,7 @@ public class Main {
 		File[] files = Leitor.filtrarDirertorios(Leitor.listarDiriretorios(new File(caminho)));
 		for (int i = 0; i < files.length; i++) {
 			Resultado result = Leitor.lerArquivo(new BufferedReader(new FileReader(files[i])));
-			Interface.imprimirResultado(result);
+			// Interface.imprimirResultado(result);
 		}
 	}
 }

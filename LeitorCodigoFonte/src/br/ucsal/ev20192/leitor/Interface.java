@@ -2,6 +2,8 @@ package br.ucsal.ev20192.leitor;
 
 import java.util.Scanner;
 
+import br.ucsal.ev20192.leitor.geradorCSV.GeradorCsv;
+
 public class Interface {
 
 	private Interface() {
@@ -19,10 +21,18 @@ public class Interface {
 		return caminho;
 	}
 
-	public static void imprimirResultado(Resultado result) {
+	public static void imprimirResultado(Resultado[] result) {
 		System.out.println("------------------------------------------------");
-		System.out.println("O LOC do arquivo é: " + result.getLoc());
-		System.out.println("O Nº de Classes presente no arquivo é de: " + result.getQtdClass());
-		System.out.println("O Nº de Métodos presente no arquivo é de: " + result.getQtdMetodos());
+
+		Scanner sc = new Scanner(System.in);
+		String download = "";
+
+		System.out.println("Informe o caminho de download do arquivo:");
+		download = sc.nextLine();
+
+		GeradorCsv.generateCsvFile(download, result);
+
+		sc.close();
+
 	}
 }
