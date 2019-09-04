@@ -1,12 +1,16 @@
-package br.ucsal.ev20192.leitor.geradorCSV;
+package br.ucsal.ev20192.geradorcsv;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
+import br.ucsal.ev20192.leitor.Interface;
 import br.ucsal.ev20192.leitor.Resultado;
 
 public class GeradorCsv {
-	public static void generateCsvFile(String caminhoCSV, Resultado[] meses) {
+	private GeradorCsv() {
+	}
+
+	public static Boolean generateCsvFile(String caminhoCSV, Resultado[] meses) {
 		try {
 			FileWriter writer = new FileWriter(caminhoCSV);
 
@@ -20,7 +24,7 @@ public class GeradorCsv {
 			writer.append('\n');
 
 			for (int i = 0; i < meses.length; i++) {
-				writer.append(String.valueOf(i));
+				writer.append(String.valueOf(i + 1));
 				writer.append(';');
 				writer.append(meses[i].getLoc().toString());
 				writer.append(";");
@@ -32,8 +36,11 @@ public class GeradorCsv {
 
 			writer.flush();
 			writer.close();
+			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
+			Interface.mensagemDownload("O arquivo não pode ser gerado.");
+			return false;
 		}
 	}
 }
