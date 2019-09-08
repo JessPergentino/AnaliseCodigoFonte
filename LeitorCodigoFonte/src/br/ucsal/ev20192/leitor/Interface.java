@@ -1,6 +1,7 @@
 package br.ucsal.ev20192.leitor;
 
 import java.io.File;
+import java.util.List;
 import java.util.Scanner;
 
 import br.ucsal.ev20192.geradorcsv.GeradorCsv;
@@ -22,16 +23,16 @@ public class Interface {
 		return caminho;
 	}
 
-	public static void downloadCsv(Resultado[] result) {
-		String download = "C:" + File.separator + "Users" + File.separator + "Public" + File.separator + "Downloads"
+	public static void downloadCsv(List<Resultado> result) {
+		String download = "C:" + File.separator + "Users" + File.separator + "jessi" + File.separator + "Downloads"
 				+ File.separator + "Analise.csv";
-		Boolean baixou = GeradorCsv.generateCsvFile(download, result);
+		Boolean baixou = GeradorCsv.geradorArquivoCsv(download, result);
 		if (baixou)
-			mensagemDownload("Download Concluido com sucesso!!");
+			mensagem("Download Concluido com sucesso!!");
 
 	}
 
-	public static void mensagemDownload(String m) {
+	public static void mensagem(String m) {
 		System.out.println(m);
 	}
 }

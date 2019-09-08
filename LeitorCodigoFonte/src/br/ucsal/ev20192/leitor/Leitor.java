@@ -2,17 +2,25 @@ package br.ucsal.ev20192.leitor;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Leitor {
 
-	public static final String PATTERCLASS = "(class|public class|private class|protected class).*";
-	public static final String PATTERMETHOD = ".*(public|private|protected).*\\)\\ \\{";
-	public static final String PATTERLINE = ".*[\\S]";
+	private static final List<Resultado> meses = new ArrayList<>();
+	public static final String PADRAOCLASSES = "(class|public class|private class|protected class).*";
+	public static final String PADRAOMETODOS = ".*(public|private|protected).*\\)\\ \\{";
+	public static final String PADRAOLINHA = ".*[\\S]";
 
 	private Leitor() {
+	}
+
+	public static List<Resultado> getMeses() {
+		return meses;
 	}
 
 	public static Resultado lerArquivo(BufferedReader codigo) {
@@ -22,13 +30,13 @@ public class Leitor {
 		try {
 			while (codigo.ready()) {
 				linha = codigo.readLine();
-				if (linha.matches(PATTERCLASS)) {
-					result.setQtdClass();
+				if (linha.matches(PADRAOCLASSES)) {
+					result.setQtdClasses();
 				}
-				if (linha.matches(PATTERMETHOD)) {
+				if (linha.matches(PADRAOMETODOS)) {
 					result.setQtdMetodos();
 				}
-				if (linha.matches(PATTERLINE)) {
+				if (linha.matches(PADRAOLINHA)) {
 					result.setLoc();
 				}
 
@@ -41,23 +49,38 @@ public class Leitor {
 	}
 
 	public static File[] listarDiriretorios(File dir) {
-		List<File> enc = new ArrayList<File>();
+		List<File> enc = new ArrayList<>();
+		try {
+			File[] arquivos = dir.listFiles();
+			for (int i = 0; i < arquivos.length; i++) {
+				Integer loc = 0;
+				Integer met = 0;
+				Integer cla = 0;
+				if (arquivos[i].isDirectory()) {
+					File[] recArq = listarDiriretorios(arquivos[i]);
+					for (int j = 0; j < recArq.length; j++) {
+						enc.add(recArq[j]);
 
-		File[] files = dir.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			if (files[i].isDirectory()) {
-				// Adiciona no Vector os arquivos encontrados dentro de 'files[i]':
-				File[] recFiles = listarDiriretorios(files[i]);
-				for (int j = 0; j < recFiles.length; j++) {
-					enc.add(recFiles[j]);
+						Resultado resultado = lerArquivo(new BufferedReader(new FileReader(recArq[j])));
+						loc += resultado.getLoc();
+						met += resultado.getQtdMetodos();
+						cla += resultado.getQtdClasses();
+
+					}
+
+					Resultado mes = new Resultado(loc, cla, met, Integer.parseInt(arquivos[i].getName()));
+					meses.add(mes);
+
+				} else {
+					enc.add(arquivos[i]);
 				}
-			} else {
-				// Adiciona no Vector o arquivo encontrado dentro de 'dir':
-				enc.add(files[i]);
+
 			}
+		} catch (FileNotFoundException e) {
+			Interface.mensagem("Não foi possivel encontrar o arquivo");
 		}
 
-		// Transforma um Vector em um File[]:
+		// Transforma uma lista em um File[]:
 		return transformarLista(enc);
 	}
 
@@ -79,6 +102,11 @@ public class Leitor {
 		}
 
 		return transformarLista(arquivos);
+	}
+
+	public static List<Resultado> mesesOrdenados() {
+		Collections.sort(meses);
+		return meses;
 	}
 
 }

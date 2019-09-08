@@ -1,19 +1,28 @@
 package br.ucsal.ev20192.leitor;
 
-public class Resultado {
+public class Resultado implements Comparable<Resultado> {
 
 	private Integer loc = 0;
-	private Integer qtdClass = 0;
+	private Integer qtdClasses = 0;
 	private Integer qtdMetodos = 0;
+	private Integer arquivo = 0;
 
 	public Resultado() {
 	}
 
-	public Resultado(Integer loc, Integer qtdClass, Integer qtdMetodos) {
+	public Resultado(Integer loc, Integer qtdClasses, Integer qtdMetodos) {
 		super();
 		this.loc = loc;
-		this.qtdClass = qtdClass;
+		this.qtdClasses = qtdClasses;
 		this.qtdMetodos = qtdMetodos;
+	}
+
+	public Resultado(Integer loc, Integer qtdClasses, Integer qtdMetodos, Integer arquivo) {
+		super();
+		this.loc = loc;
+		this.qtdClasses = qtdClasses;
+		this.qtdMetodos = qtdMetodos;
+		this.arquivo = arquivo;
 	}
 
 	public Integer getLoc() {
@@ -24,12 +33,12 @@ public class Resultado {
 		this.loc++;
 	}
 
-	public Integer getQtdClass() {
-		return qtdClass;
+	public Integer getQtdClasses() {
+		return qtdClasses;
 	}
 
-	public void setQtdClass() {
-		this.qtdClass++;
+	public void setQtdClasses() {
+		this.qtdClasses++;
 	}
 
 	public Integer getQtdMetodos() {
@@ -40,12 +49,21 @@ public class Resultado {
 		this.qtdMetodos++;
 	}
 
+	public Integer getArquivo() {
+		return arquivo;
+	}
+
+	public void setArquivo(Integer arquivo) {
+		this.arquivo = arquivo;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((arquivo == null) ? 0 : arquivo.hashCode());
 		result = prime * result + ((loc == null) ? 0 : loc.hashCode());
-		result = prime * result + ((qtdClass == null) ? 0 : qtdClass.hashCode());
+		result = prime * result + ((qtdClasses == null) ? 0 : qtdClasses.hashCode());
 		result = prime * result + ((qtdMetodos == null) ? 0 : qtdMetodos.hashCode());
 		return result;
 	}
@@ -58,28 +76,39 @@ public class Resultado {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-
 		Resultado other = (Resultado) obj;
+		if (arquivo == null) {
+			if (other.arquivo != null)
+				return false;
+		} else if (!arquivo.equals(other.arquivo))
+			return false;
 		if (loc == null) {
 			if (other.loc != null)
 				return false;
-		} else if (!loc.equals(other.loc)) {
+		} else if (!loc.equals(other.loc))
 			return false;
-		}
-
-		if (qtdClass == null) {
-			if (other.qtdClass != null)
+		if (qtdClasses == null) {
+			if (other.qtdClasses != null)
 				return false;
-		} else if (!qtdClass.equals(other.qtdClass)) {
+		} else if (!qtdClasses.equals(other.qtdClasses))
 			return false;
-		}
-
 		if (qtdMetodos == null) {
 			if (other.qtdMetodos != null)
 				return false;
-		} else if (!qtdMetodos.equals(other.qtdMetodos)) {
+		} else if (!qtdMetodos.equals(other.qtdMetodos))
 			return false;
-		}
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Resultado [loc=" + loc + ", qtdClass=" + qtdClasses + ", qtdMetodos=" + qtdMetodos + ", arquivo="
+				+ arquivo + "]";
+	}
+
+	@Override
+	public int compareTo(Resultado o) {
+		return Integer.compare(this.getArquivo(), o.getArquivo());
+	}
+
 }

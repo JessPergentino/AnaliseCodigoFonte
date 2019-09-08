@@ -26,7 +26,7 @@ public class LeitorTeste {
 
 		String caminhoArquivo2 = "C:\\Users\\jessi\\git\\AnaliseCodigoFonte\\LeitorCodigoFonte\\src\\br\\ucsal\\ev20192\\resource\\Arquivo2.java";
 		codigoArquivo2 = new BufferedReader(new BufferedReader(new FileReader(caminhoArquivo2)));
-		
+
 		String caminhoDataset = "C:\\Users\\Public\\Documents\\Dataset";
 		dataSet = new File(caminhoDataset);
 	}
@@ -43,7 +43,7 @@ public class LeitorTeste {
 
 		// Comparação do valor retornado com o esperado
 		assertEquals(locEsperado, resultadoRetornado.getLoc());
-		assertEquals(qtdClassesEsperado, resultadoRetornado.getQtdClass());
+		assertEquals(qtdClassesEsperado, resultadoRetornado.getQtdClasses());
 		assertEquals(qtdMetodosEsperados, resultadoRetornado.getQtdMetodos());
 	}
 
@@ -59,12 +59,12 @@ public class LeitorTeste {
 
 		// Comparação do valor retornado com o esperado
 		assertEquals(locEsperado, resultadoRetornado.getLoc());
-		assertEquals(qtdClassesEsperado, resultadoRetornado.getQtdClass());
+		assertEquals(qtdClassesEsperado, resultadoRetornado.getQtdClasses());
 		assertEquals(qtdMetodosEsperados, resultadoRetornado.getQtdMetodos());
 	}
-	
+
 	@Test
-	public void testListarDiretorios() {
+	public void testListarDiretorios() throws FileNotFoundException {
 		// Valor Esperado
 		int totalArquivos = 163;
 
@@ -74,9 +74,9 @@ public class LeitorTeste {
 		// Comparação do valor retornado com o esperado
 		assertEquals(totalArquivos, resultadoRetornado);
 	}
-	
+
 	@Test
-	public void testListarDiretoriosFiltrados() {
+	public void testListarDiretoriosFiltrados() throws FileNotFoundException {
 		// Valor Esperado
 		int totalArquivos = 162;
 
