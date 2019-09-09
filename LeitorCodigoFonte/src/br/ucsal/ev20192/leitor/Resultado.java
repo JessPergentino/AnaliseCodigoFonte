@@ -5,23 +5,31 @@ public class Resultado implements Comparable<Resultado> {
 	private Integer loc = 0;
 	private Integer qtdClasses = 0;
 	private Integer qtdMetodos = 0;
+	private Integer qtdClassesDeus = 0;
+	private Integer qtdMetodosDeus = 0;
 	private Integer arquivo = 0;
 
 	public Resultado() {
 	}
 
-	public Resultado(Integer loc, Integer qtdClasses, Integer qtdMetodos) {
+	public Resultado(Integer loc, Integer qtdClasses, Integer qtdMetodos, Integer qtdClassesDeus,
+			Integer qtdMetodosDeus) {
 		super();
 		this.loc = loc;
 		this.qtdClasses = qtdClasses;
 		this.qtdMetodos = qtdMetodos;
+		this.qtdClassesDeus = qtdClassesDeus;
+		this.qtdMetodosDeus = qtdMetodosDeus;
 	}
 
-	public Resultado(Integer loc, Integer qtdClasses, Integer qtdMetodos, Integer arquivo) {
+	public Resultado(Integer loc, Integer qtdClasses, Integer qtdMetodos, Integer qtdClassesDeus,
+			Integer qtdMetodosDeus, Integer arquivo) {
 		super();
 		this.loc = loc;
 		this.qtdClasses = qtdClasses;
 		this.qtdMetodos = qtdMetodos;
+		this.qtdClassesDeus = qtdClassesDeus;
+		this.qtdMetodosDeus = qtdMetodosDeus;
 		this.arquivo = arquivo;
 	}
 
@@ -55,6 +63,29 @@ public class Resultado implements Comparable<Resultado> {
 
 	public void setArquivo(Integer arquivo) {
 		this.arquivo = arquivo;
+	}
+
+	public Integer getQtdClassesDeus() {
+		return qtdClassesDeus;
+	}
+
+	public void setQtdClassesDeus() {
+		this.qtdClassesDeus++;
+	}
+
+	public Integer getQtdMetodosDeus() {
+		return qtdMetodosDeus;
+	}
+
+	public void setQtdMetodosDeus(Integer qtdMetodoDeus) {
+		this.qtdMetodosDeus = qtdMetodoDeus;
+	}
+
+	@Override
+	public String toString() {
+		return "Resultado [loc=" + loc + ", qtdClasses=" + qtdClasses + ", qtdMetodos=" + qtdMetodos
+				+ ", qtdClassesDeus=" + qtdClassesDeus + ", qtdMetodosDeus=" + qtdMetodosDeus + ", arquivo=" + arquivo
+				+ "]";
 	}
 
 	@Override
@@ -98,12 +129,6 @@ public class Resultado implements Comparable<Resultado> {
 		} else if (!qtdMetodos.equals(other.qtdMetodos))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Resultado [loc=" + loc + ", qtdClass=" + qtdClasses + ", qtdMetodos=" + qtdMetodos + ", arquivo="
-				+ arquivo + "]";
 	}
 
 	@Override

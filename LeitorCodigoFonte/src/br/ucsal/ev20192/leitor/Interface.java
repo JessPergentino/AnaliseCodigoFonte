@@ -8,6 +8,9 @@ import br.ucsal.ev20192.geradorcsv.GeradorCsv;
 
 public class Interface {
 
+	private static final String CAMINHODOWNLOAD = "C:" + File.separator + "Users" + File.separator + "100912556"
+			+ File.separator + "Downloads" + File.separator + "Analise.csv";
+
 	private Interface() {
 	}
 
@@ -24,9 +27,7 @@ public class Interface {
 	}
 
 	public static void downloadCsv(List<Resultado> result) {
-		String download = "C:" + File.separator + "Users" + File.separator + "jessi" + File.separator + "Downloads"
-				+ File.separator + "Analise.csv";
-		Boolean baixou = GeradorCsv.geradorArquivoCsv(download, result);
+		Boolean baixou = GeradorCsv.geradorArquivoCsv(CAMINHODOWNLOAD, result);
 		if (baixou)
 			mensagem("Download Concluido com sucesso!!");
 

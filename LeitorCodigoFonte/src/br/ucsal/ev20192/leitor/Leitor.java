@@ -11,8 +11,10 @@ import java.util.List;
 
 public class Leitor {
 
+	private static final int LINHASCLASSEDEUS = 800;
+	private static final int LINHASMETODODEUS = 127;
 	private static final List<Resultado> meses = new ArrayList<>();
-	public static final String PADRAOCLASSES = "(class|public class|private class|protected class).*";
+	public static final String PADRAOCLASSES = ".*(^class|public class|private class|protected class.*)";
 	public static final String PADRAOMETODOS = ".*(public|private|protected).*\\)\\ \\{";
 	public static final String PADRAOLINHA = ".*[\\S]";
 
@@ -30,7 +32,7 @@ public class Leitor {
 		try {
 			while (codigo.ready()) {
 				linha = codigo.readLine();
-				if (linha.matches(PADRAOCLASSES)) {
+				if (linha.startsWith(PADRAOCLASSES)) {
 					result.setQtdClasses();
 				}
 				if (linha.matches(PADRAOMETODOS)) {
@@ -45,7 +47,33 @@ public class Leitor {
 			e.printStackTrace();
 		}
 
+		if (result.getLoc() > LINHASCLASSEDEUS && result.getQtdClasses() == 1) {
+			result.setQtdClassesDeus();
+		}
+
+		result.setQtdMetodosDeus(contarMetodosDeus(codigo));
+
 		return result;
+	}
+
+	private static Integer contarMetodosDeus(BufferedReader codigo) {
+		Integer qtdMetodosDeus = 0;
+		Integer qtdLinhas = 0;
+		try {
+			while (codigo.ready()) {
+				String linha = codigo.readLine();
+				if (linha.matches(PADRAOMETODOS)) {
+					qtdLinhas++;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		if (qtdLinhas > LINHASMETODODEUS) {
+			qtdMetodosDeus++;
+		}
+		return qtdMetodosDeus;
 	}
 
 	public static File[] listarDiriretorios(File dir) {
@@ -56,6 +84,9 @@ public class Leitor {
 				Integer loc = 0;
 				Integer met = 0;
 				Integer cla = 0;
+				Integer claDe = 0;
+				Integer metDe = 0;
+
 				if (arquivos[i].isDirectory()) {
 					File[] recArq = listarDiriretorios(arquivos[i]);
 					for (int j = 0; j < recArq.length; j++) {
@@ -65,10 +96,13 @@ public class Leitor {
 						loc += resultado.getLoc();
 						met += resultado.getQtdMetodos();
 						cla += resultado.getQtdClasses();
-
+						claDe += resultado.getQtdClassesDeus();
+						metDe += resultado.getQtdMetodosDeus();
+						
+						System.out.println(resultado.toString());
 					}
 
-					Resultado mes = new Resultado(loc, cla, met, Integer.parseInt(arquivos[i].getName()));
+					Resultado mes = new Resultado(loc, cla, met, claDe, metDe, Integer.parseInt(arquivos[i].getName()));
 					meses.add(mes);
 
 				} else {

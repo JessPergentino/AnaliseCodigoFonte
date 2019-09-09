@@ -25,6 +25,10 @@ public class GeradorCsv {
 			writer.append("Classes");
 			writer.append(SEPARADOR);
 			writer.append("Métodos");
+			writer.append(SEPARADOR);
+			writer.append("Classes Deus");
+			writer.append(SEPARADOR);
+			writer.append("Métodos Deus");
 			writer.append(QUEBRALINHA);
 
 			for (Resultado resultado : meses) {
@@ -35,6 +39,10 @@ public class GeradorCsv {
 				writer.append(resultado.getQtdClasses().toString());
 				writer.append(SEPARADOR);
 				writer.append(resultado.getQtdMetodos().toString());
+				writer.append(SEPARADOR);
+				writer.append(resultado.getQtdClassesDeus().toString());
+				writer.append(SEPARADOR);
+				writer.append(resultado.getQtdMetodosDeus().toString());
 				writer.append(QUEBRALINHA);
 			}
 
