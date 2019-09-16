@@ -8,13 +8,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Leitor {
 
 	private static final int LINHASCLASSEDEUS = 800;
 	private static final int LINHASMETODODEUS = 127;
 	private static final List<Resultado> meses = new ArrayList<>();
-	public static final String PADRAOCLASSES = ".*(^class|public class|private class|protected class.*)";
+	public static final String PADRAOCLASSES = ".*(static class|public class|private class|protected class.*)";
 	public static final String PADRAOMETODOS = ".*(public|private|protected).*\\)\\ \\{";
 	public static final String PADRAOLINHA = ".*[\\S]";
 
@@ -32,15 +34,9 @@ public class Leitor {
 		try {
 			while (codigo.ready()) {
 				linha = codigo.readLine();
-				if (linha.startsWith(PADRAOCLASSES)) {
-					result.setQtdClasses();
-				}
-				if (linha.matches(PADRAOMETODOS)) {
-					result.setQtdMetodos();
-				}
-				if (linha.matches(PADRAOLINHA)) {
-					result.setLoc();
-				}
+				encontrarClasses(result, linha);
+				encontrarMetodos(result, linha);
+				encontrarLinhas(result, linha);
 
 			}
 		} catch (IOException e) {
@@ -54,6 +50,36 @@ public class Leitor {
 		result.setQtdMetodosDeus(contarMetodosDeus(codigo));
 
 		return result;
+	}
+
+	private static void encontrarLinhas(Resultado result, String linha) {
+		Pattern p = Pattern.compile(PADRAOLINHA);
+		Matcher m = p.matcher(linha);
+
+		while (m.find()) {
+			// Obtendo o inicio do que foi encontrado
+			result.setLoc();
+		}
+	}
+
+	private static void encontrarMetodos(Resultado result, String linha) {
+		Pattern p = Pattern.compile(PADRAOMETODOS);
+		Matcher m = p.matcher(linha);
+
+		while (m.find()) {
+			// Obtendo o inicio do que foi encontrado
+			result.setQtdMetodos();
+		}
+	}
+
+	private static void encontrarClasses(Resultado result, String linha) {
+		Pattern p = Pattern.compile(PADRAOCLASSES);
+		Matcher m = p.matcher(linha);
+
+		while (m.find()) {
+			// Obtendo o inicio do que foi encontrado
+			result.setQtdClasses();
+		}
 	}
 
 	private static Integer contarMetodosDeus(BufferedReader codigo) {
@@ -98,8 +124,6 @@ public class Leitor {
 						cla += resultado.getQtdClasses();
 						claDe += resultado.getQtdClassesDeus();
 						metDe += resultado.getQtdMetodosDeus();
-						
-						System.out.println(resultado.toString());
 					}
 
 					Resultado mes = new Resultado(loc, cla, met, claDe, metDe, Integer.parseInt(arquivos[i].getName()));

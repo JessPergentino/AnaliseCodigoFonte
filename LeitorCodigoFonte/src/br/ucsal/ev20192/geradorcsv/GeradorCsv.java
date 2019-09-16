@@ -8,7 +8,7 @@ import br.ucsal.ev20192.leitor.Interface;
 import br.ucsal.ev20192.leitor.Resultado;
 
 public class GeradorCsv {
-	private static final String SEPARADOR = ";";
+	private static final char SEPARADOR = ',';
 	private static final String QUEBRALINHA = "\n";
 
 	private GeradorCsv() {
