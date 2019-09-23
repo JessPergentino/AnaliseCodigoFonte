@@ -17,9 +17,13 @@ public class Leitor {
 	private static final int LINHASMETODODEUS = 127;
 	private static final List<Resultado> meses = new ArrayList<>();
 	public static final String PADRAOCLASSES = ".*(static class|public class|private class|protected class.*)";
-	public static final String PADRAOMETODOS = ".*(public|private|protected).*\\)\\ \\{";
-	//".*(public|private|protected).*\\)*\\{";
+	public static final String PADRAOMETODOS = ".*(public|private|protected|void|\\ Bitmap)(.*\\)\\ \\{|.*\\ throws.*)";
+	public static final String PADRAOMETODOSCOMABSTRATOS = ".*(public|private|protected|void|\\ Bitmap)(.*\\)\\ \\{)|.*(public abstract\\ |private abstract\\ |protected static\\ )(.*\\)\\ \\{)";
+	public static final String PADRAOCOMENTARIO = ".*(\\/\\*)|\\*\\/";
 	public static final String PADRAOLINHA = ".*[\\S]";
+	public static final String PADRAOABRIR = "\\{";
+	public static final String PADRAOFECHAR = "\\}";
+	
 
 	private Leitor() {
 	}
@@ -35,70 +39,84 @@ public class Leitor {
 		try {
 			while (codigo.ready()) {
 				linha = codigo.readLine();
-				encontrarClasses(result, linha);
-				encontrarMetodos(result, linha);
-				encontrarLinhas(result, linha);
+				contarClasses(result, linha);
+				contarMetodos(result, linha);
+				contarLinhas(result, linha);
 
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		if (result.getLoc() > LINHASCLASSEDEUS && result.getQtdClasses() == 1) {
-			result.setQtdClassesDeus();
-		}
-
+		contarClasseDeus(codigo, result);
 		result.setQtdMetodosDeus(contarMetodosDeus(codigo));
 
 		return result;
 	}
 
-	private static void encontrarLinhas(Resultado result, String linha) {
+	private static void contarLinhas(Resultado result, String linha) {
 		Pattern p = Pattern.compile(PADRAOLINHA);
 		Matcher m = p.matcher(linha);
 
 		while (m.find()) {
-			// Obtendo o inicio do que foi encontrado
 			result.setLoc();
 		}
 	}
 
-	private static void encontrarMetodos(Resultado result, String linha) {
-		Pattern p = Pattern.compile(PADRAOMETODOS);
-		Matcher m = p.matcher(linha);
+	private static void contarMetodos(Resultado result, String linha) {
+		Pattern pMetodo = Pattern.compile(PADRAOMETODOS);
+		Matcher m = pMetodo.matcher(linha);
 
 		while (m.find()) {
-			// Obtendo o inicio do que foi encontrado
 			result.setQtdMetodos();
-		}
+		}	
 	}
 
-	private static void encontrarClasses(Resultado result, String linha) {
+	private static void contarClasses(Resultado result, String linha) {
 		Pattern p = Pattern.compile(PADRAOCLASSES);
 		Matcher m = p.matcher(linha);
 
 		while (m.find()) {
-			// Obtendo o inicio do que foi encontrado
 			result.setQtdClasses();
 		}
 	}
 
-	private static Integer contarMetodosDeus(BufferedReader codigo) {
-		Integer qtdMetodosDeus = 0;
+	private static void contarClasseDeus(BufferedReader codigo, Resultado result) {
+		String linha = "";
 		Integer qtdLinhas = 0;
+		Integer abrir = 0;
+		Integer fechar = 0;
+		
 		try {
 			while (codigo.ready()) {
-				String linha = codigo.readLine();
-				if (linha.matches(PADRAOMETODOS)) {
+				if(linha.matches(PADRAOABRIR)) {
 					qtdLinhas++;
 				}
+				
+
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+	}
+	private static Integer contarMetodosDeus(BufferedReader codigo) {
+		String linha = "";
+		Integer qtdMetodosDeus = 0;
+		Integer qtdLinhas = 0;
+		Integer abrir = 0;
+		Integer fechar = 0;
+		
+		try {
+			while (codigo.ready()) {
+				if(linha.matches(PADRAOMETODOS)) {
+				
+				}
+				
 
-		if (qtdLinhas > LINHASMETODODEUS) {
-			qtdMetodosDeus++;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return qtdMetodosDeus;
 	}
