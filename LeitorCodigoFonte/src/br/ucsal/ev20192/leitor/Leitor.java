@@ -40,13 +40,15 @@ public class Leitor {
 				contarMetodos(resultado, linha);
 				contarLinhas(resultado, linha);
 				ContadorBadSmell.contarMetodosDeus(linha, PADRAOMETODOS);
-
+//				ContadorBadSmell.contarClasseDeus(linha, PADRAOCLASSES);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		resultado.setQtdMetodosDeus(ContadorBadSmell.getQtdMetodosDeus());
+		resultado.setQtdClassesDeus(ContadorBadSmell.getQtdClasseDeus());
+		ContadorBadSmell.limparNovoMes();
 
 		return resultado;
 	}

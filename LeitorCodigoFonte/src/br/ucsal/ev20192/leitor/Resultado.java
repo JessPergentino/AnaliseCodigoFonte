@@ -69,8 +69,8 @@ public class Resultado implements Comparable<Resultado> {
 		return qtdClassesDeus;
 	}
 
-	public void setQtdClassesDeus() {
-		this.qtdClassesDeus++;
+	public void setQtdClassesDeus(Integer qtdClassesDeus) {
+		this.qtdClassesDeus = qtdClassesDeus;
 	}
 
 	public Integer getQtdMetodosDeus() {
