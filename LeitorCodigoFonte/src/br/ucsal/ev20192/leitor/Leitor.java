@@ -11,19 +11,16 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import br.ucsal.ev20192.leitor.utils.ContadorBadSmell;
+
 public class Leitor {
 
-	private static final int LINHASCLASSEDEUS = 800;
-	private static final int LINHASMETODODEUS = 127;
 	private static final List<Resultado> meses = new ArrayList<>();
 	public static final String PADRAOCLASSES = ".*(static class|public class|private class|protected class.*)";
 	public static final String PADRAOMETODOS = ".*(public|private|protected|void|\\ Bitmap)(.*\\)\\ \\{|.*\\ throws.*)";
 	public static final String PADRAOMETODOSCOMABSTRATOS = ".*(public|private|protected|void|\\ Bitmap)(.*\\)\\ \\{)|.*(public abstract\\ |private abstract\\ |protected static\\ )(.*\\)\\ \\{)";
 	public static final String PADRAOCOMENTARIO = ".*(\\/\\*)|\\*\\/";
 	public static final String PADRAOLINHA = ".*[\\S]";
-	public static final String PADRAOABRIR = "\\{";
-	public static final String PADRAOFECHAR = "\\}";
-	
 
 	private Leitor() {
 	}
@@ -33,25 +30,25 @@ public class Leitor {
 	}
 
 	public static Resultado lerArquivo(BufferedReader codigo) {
-		Resultado result = new Resultado();
+		Resultado resultado = new Resultado();
 		String linha = "";
 
 		try {
 			while (codigo.ready()) {
 				linha = codigo.readLine();
-				contarClasses(result, linha);
-				contarMetodos(result, linha);
-				contarLinhas(result, linha);
+				contarClasses(resultado, linha);
+				contarMetodos(resultado, linha);
+				contarLinhas(resultado, linha);
+				ContadorBadSmell.contarMetodosDeus(linha, PADRAOMETODOS);
 
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		contarClasseDeus(codigo, result);
-		result.setQtdMetodosDeus(contarMetodosDeus(codigo));
+		resultado.setQtdMetodosDeus(ContadorBadSmell.getQtdMetodosDeus());
 
-		return result;
+		return resultado;
 	}
 
 	private static void contarLinhas(Resultado result, String linha) {
@@ -69,7 +66,7 @@ public class Leitor {
 
 		while (m.find()) {
 			result.setQtdMetodos();
-		}	
+		}
 	}
 
 	private static void contarClasses(Resultado result, String linha) {
@@ -79,46 +76,6 @@ public class Leitor {
 		while (m.find()) {
 			result.setQtdClasses();
 		}
-	}
-
-	private static void contarClasseDeus(BufferedReader codigo, Resultado result) {
-		String linha = "";
-		Integer qtdLinhas = 0;
-		Integer abrir = 0;
-		Integer fechar = 0;
-		
-		try {
-			while (codigo.ready()) {
-				if(linha.matches(PADRAOABRIR)) {
-					qtdLinhas++;
-				}
-				
-
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	private static Integer contarMetodosDeus(BufferedReader codigo) {
-		String linha = "";
-		Integer qtdMetodosDeus = 0;
-		Integer qtdLinhas = 0;
-		Integer abrir = 0;
-		Integer fechar = 0;
-		
-		try {
-			while (codigo.ready()) {
-				if(linha.matches(PADRAOMETODOS)) {
-				
-				}
-				
-
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return qtdMetodosDeus;
 	}
 
 	public static File[] listarDiriretorios(File dir) {
@@ -154,7 +111,7 @@ public class Leitor {
 
 			}
 		} catch (FileNotFoundException e) {
-			Interface.mensagem("NÃ£o foi possivel encontrar o arquivo");
+			Interface.mensagem("Não foi possivel encontrar o arquivo");
 		}
 
 		// Transforma uma lista em um File[]:
