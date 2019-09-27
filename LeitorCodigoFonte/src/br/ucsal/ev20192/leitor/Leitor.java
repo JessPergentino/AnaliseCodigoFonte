@@ -11,12 +11,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import br.ucsal.ev20192.leitor.utils.ContadorBadSmell;
+import br.ucsal.ev20192.leitor.utils.ContadorBadSmellClasse;
+import br.ucsal.ev20192.leitor.utils.ContadorBadSmellMetodo;
 
 public class Leitor {
 
 	private static final List<Resultado> meses = new ArrayList<>();
-	public static final String PADRAOCLASSES = ".*(static class|public class|private class|protected class.*)";
+	public static final String PADRAOCLASSES = ".*(static class|public class|private class|protected class).*";
 	public static final String PADRAOMETODOS = ".*(public|private|protected|void|\\ Bitmap)(.*\\)\\ \\{|.*\\ throws.*)";
 	public static final String PADRAOMETODOSCOMABSTRATOS = ".*(public|private|protected|void|\\ Bitmap)(.*\\)\\ \\{)|.*(public abstract\\ |private abstract\\ |protected static\\ )(.*\\)\\ \\{)";
 	public static final String PADRAOCOMENTARIO = ".*(\\/\\*)|\\*\\/";
@@ -39,16 +40,17 @@ public class Leitor {
 				contarClasses(resultado, linha);
 				contarMetodos(resultado, linha);
 				contarLinhas(resultado, linha);
-				ContadorBadSmell.contarMetodosDeus(linha, PADRAOMETODOS);
-//				ContadorBadSmell.contarClasseDeus(linha, PADRAOCLASSES);
+				ContadorBadSmellMetodo.contarMetodosDeus(linha, PADRAOMETODOS);
+				ContadorBadSmellClasse.contarClasseDeus(linha, PADRAOCLASSES);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		resultado.setQtdMetodosDeus(ContadorBadSmell.getQtdMetodosDeus());
-		resultado.setQtdClassesDeus(ContadorBadSmell.getQtdClasseDeus());
-		ContadorBadSmell.limparNovoMes();
+		resultado.setQtdMetodosDeus(ContadorBadSmellMetodo.getQtdMetodosDeus());
+		resultado.setQtdClassesDeus(ContadorBadSmellClasse.getQtdClasseDeus());
+		ContadorBadSmellMetodo.limparNovoArquivo();
+		ContadorBadSmellClasse.limparNovoArquivo();
 
 		return resultado;
 	}

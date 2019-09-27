@@ -1,19 +1,17 @@
 package br.ucsal.ev20192.leitor.utils;
 
-public class ContadorBadSmell {
+public class ContadorBadSmellMetodo {
 
-	private static final int LINHASCLASSEDEUS = 800;
 	private static final int LINHASMETODODEUS = 127;
-	public static final String PADRAOABRIR = ".*\\{";
-	public static final String PADRAOFECHAR = ".*\\}.*";
-	public static Boolean regex = false;
+	private static final String PADRAOABRIR = ".*\\{";
+	private static final String PADRAOFECHAR = ".*\\}.*";
+	private static Boolean regex = false;
 	private static Integer qtdMetodosDeus = 0;
-	private static Integer qtdClasseDeus = 0;
 	private static Integer qtdLinhas = 0;
 	private static Integer abrir = 0;
 	private static Integer fechar = 0;
 
-	private ContadorBadSmell() {
+	private ContadorBadSmellMetodo() {
 		throw new IllegalStateException("Utility class");
 	}
 
@@ -41,52 +39,27 @@ public class ContadorBadSmell {
 		}
 	}
 
-	public static void contarClasseDeus(String linha, String padrao) {
-		if (linha.matches(padrao)) {
-			regex = true;
-		}
-		if (linha.matches(PADRAOABRIR) && regex) {
-			abrir++;
-		}
-
-		if (linha.matches(PADRAOFECHAR) && regex) {
-			fechar++;
-		}
-
-		if (regex) {
-			qtdLinhas++;
-		}
-
-		if (abrir.equals(fechar)) {
-			if (qtdLinhas > LINHASCLASSEDEUS) {
-				qtdClasseDeus++;
-			}
-			limparNovoMetodo();		
-		}
-	}
-
-	public static void limparNovoMes() {
-		setMetodo(false);
+	public static void limparNovoArquivo() {
+		setRegex(false);
 		setAbrir(0);
 		setFechar(0);
 		setQtdLinhas(0);
 		setQtdMetodosDeus(0);
-		setQtdClasseDeus(0);
 	}
 
 	private static void limparNovoMetodo() {
-		setMetodo(false);
+		setRegex(false);
 		setAbrir(0);
 		setFechar(0);
 		setQtdLinhas(0);
 	}
-	
-	public static Boolean getMetodo() {
+
+	public static Boolean getRegex() {
 		return regex;
 	}
 
-	public static void setMetodo(Boolean metodo) {
-		ContadorBadSmell.regex = metodo;
+	public static void setRegex(Boolean regex) {
+		ContadorBadSmellMetodo.regex = regex;
 	}
 
 	public static Integer getQtdLinhas() {
@@ -94,7 +67,7 @@ public class ContadorBadSmell {
 	}
 
 	public static void setQtdLinhas(Integer qtdLinhas) {
-		ContadorBadSmell.qtdLinhas = qtdLinhas;
+		ContadorBadSmellMetodo.qtdLinhas = qtdLinhas;
 	}
 
 	public static Integer getAbrir() {
@@ -102,7 +75,7 @@ public class ContadorBadSmell {
 	}
 
 	public static void setAbrir(Integer abrir) {
-		ContadorBadSmell.abrir = abrir;
+		ContadorBadSmellMetodo.abrir = abrir;
 	}
 
 	public static Integer getFechar() {
@@ -110,7 +83,7 @@ public class ContadorBadSmell {
 	}
 
 	public static void setFechar(Integer fechar) {
-		ContadorBadSmell.fechar = fechar;
+		ContadorBadSmellMetodo.fechar = fechar;
 	}
 
 	public static Integer getQtdMetodosDeus() {
@@ -118,15 +91,7 @@ public class ContadorBadSmell {
 	}
 
 	public static void setQtdMetodosDeus(Integer qtdMetodosDeus) {
-		ContadorBadSmell.qtdMetodosDeus = qtdMetodosDeus;
-	}
-
-	public static Integer getQtdClasseDeus() {
-		return qtdClasseDeus;
-	}
-
-	public static void setQtdClasseDeus(Integer qtdClasseDeus) {
-		ContadorBadSmell.qtdClasseDeus = qtdClasseDeus;
+		ContadorBadSmellMetodo.qtdMetodosDeus = qtdMetodosDeus;
 	}
 
 }
