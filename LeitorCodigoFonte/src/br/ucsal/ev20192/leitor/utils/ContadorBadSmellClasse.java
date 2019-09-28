@@ -1,5 +1,7 @@
 package br.ucsal.ev20192.leitor.utils;
 
+import br.ucsal.ev20192.leitor.Leitor;
+
 public class ContadorBadSmellClasse {
 
 	private static final int LINHASCLASSEDEUS = 800;
@@ -27,12 +29,8 @@ public class ContadorBadSmellClasse {
 			fechar++;
 		}
 
-		if (regex) {
+		if (regex && linha.matches(Leitor.PADRAOLINHA)) {
 			qtdLinhas++;
-		}
-
-		if (abrir.equals(fechar) && qtdLinhas > LINHASCLASSEDEUS) {
-			qtdClasseDeus++;
 		}
 	}
 
@@ -42,6 +40,10 @@ public class ContadorBadSmellClasse {
 		setFechar(0);
 		setQtdLinhas(0);
 		setQtdClasseDeus(0);
+	}
+	
+	public static int getLinhasclassedeus() {
+		return LINHASCLASSEDEUS;
 	}
 
 	public static Integer getQtdLinhas() {
@@ -76,4 +78,7 @@ public class ContadorBadSmellClasse {
 		ContadorBadSmellClasse.qtdClasseDeus = qtdClasseDeus;
 	}
 
+	public static void incrementaClasseDeus() {
+		ContadorBadSmellClasse.qtdClasseDeus++;
+	}
 }

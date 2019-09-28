@@ -8,7 +8,7 @@ import br.ucsal.ev20192.leitor.Interface;
 import br.ucsal.ev20192.leitor.Resultado;
 
 public class GeradorCsv {
-	private static final char SEPARADOR = ';';
+	private static final char SEPARADOR = ',';
 	private static final String QUEBRALINHA = "\n";
 
 	private GeradorCsv() {
@@ -26,9 +26,9 @@ public class GeradorCsv {
 			writer.append(SEPARADOR);
 			writer.append("Métodos");
 			writer.append(SEPARADOR);
-			writer.append("Classes Deus");
+			writer.append("Classe Deus");
 			writer.append(SEPARADOR);
-			writer.append("Métodos Deus");
+			writer.append("Método Deus");
 			writer.append(QUEBRALINHA);
 
 			for (Resultado resultado : meses) {

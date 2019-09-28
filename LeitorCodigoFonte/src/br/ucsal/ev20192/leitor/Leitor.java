@@ -19,9 +19,10 @@ public class Leitor {
 	private static final List<Resultado> meses = new ArrayList<>();
 	public static final String PADRAOCLASSES = ".*(static class|public class|private class|protected class).*";
 	public static final String PADRAOMETODOS = ".*(public|private|protected|void|\\ Bitmap)(.*\\)\\ \\{|.*\\ throws.*)";
-	public static final String PADRAOMETODOSCOMABSTRATOS = ".*(public|private|protected|void|\\ Bitmap)(.*\\)\\ \\{)|.*(public abstract\\ |private abstract\\ |protected static\\ )(.*\\)\\ \\{)";
-	public static final String PADRAOCOMENTARIO = ".*(\\/\\*)|\\*\\/";
+	public static final String PADRAOABRIRCOMENTARIO = "/*";
+	public static final String PADRAOFECHARCOMENTARIO = "*/";
 	public static final String PADRAOLINHA = ".*[\\S]";
+	private static Boolean comentario = false;
 
 	private Leitor() {
 	}
@@ -38,7 +39,19 @@ public class Leitor {
 			while (codigo.ready()) {
 				linha = codigo.readLine();
 				contarClasses(resultado, linha);
-				contarMetodos(resultado, linha);
+
+				if (linha.contains(PADRAOABRIRCOMENTARIO)) {
+					comentario = true;
+				}
+				
+				if (linha.contains(PADRAOFECHARCOMENTARIO)) {
+					comentario = false;
+				}
+
+				if (!comentario) {
+					contarMetodos(resultado, linha);
+				}
+
 				contarLinhas(resultado, linha);
 				ContadorBadSmellMetodo.contarMetodosDeus(linha, PADRAOMETODOS);
 				ContadorBadSmellClasse.contarClasseDeus(linha, PADRAOCLASSES);
@@ -48,6 +61,9 @@ public class Leitor {
 		}
 
 		resultado.setQtdMetodosDeus(ContadorBadSmellMetodo.getQtdMetodosDeus());
+		if (ContadorBadSmellClasse.getQtdLinhas() > ContadorBadSmellClasse.getLinhasclassedeus()) {
+			ContadorBadSmellClasse.incrementaClasseDeus();
+		}
 		resultado.setQtdClassesDeus(ContadorBadSmellClasse.getQtdClasseDeus());
 		ContadorBadSmellMetodo.limparNovoArquivo();
 		ContadorBadSmellClasse.limparNovoArquivo();

@@ -1,5 +1,7 @@
 package br.ucsal.ev20192.leitor.utils;
 
+import br.ucsal.ev20192.leitor.Leitor;
+
 public class ContadorBadSmellMetodo {
 
 	private static final int LINHASMETODODEUS = 127;
@@ -27,7 +29,7 @@ public class ContadorBadSmellMetodo {
 			fechar++;
 		}
 
-		if (regex) {
+		if (regex && linha.matches(Leitor.PADRAOLINHA)) {
 			qtdLinhas++;
 		}
 
