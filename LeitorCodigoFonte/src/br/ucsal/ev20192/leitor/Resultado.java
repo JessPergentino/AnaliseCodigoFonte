@@ -37,7 +37,11 @@ public class Resultado implements Comparable<Resultado> {
 		return loc;
 	}
 
-	public void setLoc() {
+	public void setLoc(Integer loc) {
+		this.loc = loc;
+	}
+
+	public void incrementarLoc() {
 		this.loc++;
 	}
 
@@ -45,7 +49,11 @@ public class Resultado implements Comparable<Resultado> {
 		return qtdClasses;
 	}
 
-	public void setQtdClasses() {
+	public void setQtdClasses(Integer qtdClasses) {
+		this.qtdClasses = qtdClasses;
+	}
+
+	public void incrementarClasses() {
 		this.qtdClasses++;
 	}
 
@@ -53,7 +61,11 @@ public class Resultado implements Comparable<Resultado> {
 		return qtdMetodos;
 	}
 
-	public void setQtdMetodos() {
+	public void setQtdMetodos(Integer qtdMetodos) {
+		this.qtdMetodos = qtdMetodos;
+	}
+
+	public void incrementarMetodos() {
 		this.qtdMetodos++;
 	}
 
@@ -80,6 +92,7 @@ public class Resultado implements Comparable<Resultado> {
 	public void setQtdMetodosDeus(Integer qtdMetodoDeus) {
 		this.qtdMetodosDeus = qtdMetodoDeus;
 	}
+	
 
 	@Override
 	public String toString() {

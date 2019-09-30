@@ -9,7 +9,7 @@ import br.ucsal.ev20192.geradorcsv.GeradorCsv;
 public class Interface {
 
 	private static final String CAMINHODOWNLOAD = "C:" + File.separator + "Users" + File.separator + "public"
-			+ File.separator + "Downloads" + File.separator + "Analise.csv";
+			+ File.separator + "Downloads" + File.separator + "analise.csv";
 
 	private Interface() {
 	}

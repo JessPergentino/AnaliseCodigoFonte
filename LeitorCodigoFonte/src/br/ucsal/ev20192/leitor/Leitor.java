@@ -76,7 +76,7 @@ public class Leitor {
 		Matcher m = p.matcher(linha);
 
 		while (m.find()) {
-			result.setLoc();
+			result.incrementarLoc();
 		}
 	}
 
@@ -85,7 +85,7 @@ public class Leitor {
 		Matcher m = pMetodo.matcher(linha);
 
 		while (m.find()) {
-			result.setQtdMetodos();
+			result.incrementarMetodos();
 		}
 	}
 
@@ -94,7 +94,7 @@ public class Leitor {
 		Matcher m = p.matcher(linha);
 
 		while (m.find()) {
-			result.setQtdClasses();
+			result.incrementarClasses();
 		}
 	}
 
