@@ -19,6 +19,7 @@ public class Leitor {
 	private static final List<Resultado> meses = new ArrayList<>();
 	public static final String PADRAOCLASSES = ".*(static class|public class|private class|protected class).*";
 	public static final String PADRAOMETODOS = ".*(public|private|protected|void|\\ Bitmap)(.*\\)\\ \\{|.*\\ throws.*)";
+	/* Regex C: ^(static int|static void|static float|static char|static double|int|float|char|double|void) */
 	public static final String PADRAOABRIRCOMENTARIO = "/*";
 	public static final String PADRAOFECHARCOMENTARIO = "*/";
 	public static final String PADRAOLINHA = ".*[\\S]";
@@ -131,7 +132,7 @@ public class Leitor {
 
 			}
 		} catch (FileNotFoundException e) {
-			Interface.mensagem("Não foi possivel encontrar o arquivo");
+			Interface.mensagem("NÃ£o foi possivel encontrar o arquivo");
 		}
 
 		// Transforma uma lista em um File[]:
