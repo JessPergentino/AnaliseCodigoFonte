@@ -16,8 +16,8 @@ public class AlgoritmoPredicao {
 	private AlgoritmoPredicao() {
 	}
 
-	public static Resultado predicao28Mes(List<Resultado> meses) {
-		Resultado mes28 = new Resultado();
+	public static Resultado predicaoProximoMes(List<Resultado> meses) {
+		Resultado proximoMes = new Resultado();
 		for (int i = 0; i < meses.size(); i++) {
 			if (i == 0) {
 				setMediaLoc(calcularMediaMovelSimples(meses.get(i).getLoc(), meses.get(i + 1).getLoc()));
@@ -42,14 +42,14 @@ public class AlgoritmoPredicao {
 			}
 		}
 
-		mes28.setArquivo(meses.size() + 1);
-		mes28.setLoc(getMediaLoc().intValue());
-		mes28.setQtdClasses(getMediaClasse().intValue());
-		mes28.setQtdMetodos(getMediaMetodo().intValue());
-		mes28.setQtdClassesDeus(getMediaClasseDeus().intValue());
-		mes28.setQtdMetodosDeus(getMediaMetodoDeus().intValue());
+		proximoMes.setArquivo(meses.size() + 1);
+		proximoMes.setLoc(getMediaLoc().intValue());
+		proximoMes.setQtdClasses(getMediaClasse().intValue());
+		proximoMes.setQtdMetodos(getMediaMetodo().intValue());
+		proximoMes.setQtdClassesDeus(getMediaClasseDeus().intValue());
+		proximoMes.setQtdMetodosDeus(getMediaMetodoDeus().intValue());
 
-		return mes28;
+		return proximoMes;
 	}
 
 	private static Double calcularMediaMovelSimples(Integer mesAtual, Integer mesSeguinte) {

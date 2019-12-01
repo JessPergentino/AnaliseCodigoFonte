@@ -15,7 +15,7 @@ public class Main {
 		String caminho = Interface.menu();
 		Leitor.filtrarDirertorios(Leitor.listarDiriretorios(new File(caminho)));
 		List<Resultado> meses = Leitor.mesesOrdenados();
-		meses.add(AlgoritmoPredicao.predicao28Mes(meses));
+		meses.add(AlgoritmoPredicao.predicaoProximoMes(meses));
 		Interface.downloadCsv(meses);
 	}
 }

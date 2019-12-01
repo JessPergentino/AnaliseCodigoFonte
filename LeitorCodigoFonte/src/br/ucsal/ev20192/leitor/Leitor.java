@@ -16,10 +16,14 @@ import br.ucsal.ev20192.leitor.utils.ContadorBadSmellMetodo;
 
 public class Leitor {
 
+	private static final String JAVA = ".java";
+	private static final String C = ".c";
 	private static final List<Resultado> meses = new ArrayList<>();
 	public static final String PADRAOCLASSES = ".*(static class|public class|private class|protected class).*";
 	public static final String PADRAOMETODOS = ".*(public|private|protected|void|\\ Bitmap)(.*\\)\\ \\{|.*\\ throws.*)";
-	/* Regex C: ^(static int|static void|static float|static char|static double|int|float|char|double|void) */
+	public static final String PADRAOMETODOSC = "^(static inline void|static uint8_t|static int|static int |static void|static void |static float|"
+			+ "static char|static double|static struct .* \\*$|static u_int32_t|int|float|char \\*|"
+			+ "double|bool|void |void|struct .* \\*$|ufs2_daddr_t|nfsuint64 .*\\*$)$";
 	public static final String PADRAOABRIRCOMENTARIO = "/*";
 	public static final String PADRAOFECHARCOMENTARIO = "*/";
 	public static final String PADRAOLINHA = ".*[\\S]";
@@ -44,7 +48,7 @@ public class Leitor {
 				if (linha.contains(PADRAOABRIRCOMENTARIO)) {
 					comentario = true;
 				}
-				
+
 				if (linha.contains(PADRAOFECHARCOMENTARIO)) {
 					comentario = false;
 				}
@@ -54,7 +58,7 @@ public class Leitor {
 				}
 
 				contarLinhas(resultado, linha);
-				ContadorBadSmellMetodo.contarMetodosDeus(linha, PADRAOMETODOS);
+				ContadorBadSmellMetodo.contarMetodosDeus(linha, PADRAOMETODOSC);
 				ContadorBadSmellClasse.contarClasseDeus(linha, PADRAOCLASSES);
 			}
 		} catch (IOException e) {
@@ -82,7 +86,7 @@ public class Leitor {
 	}
 
 	private static void contarMetodos(Resultado result, String linha) {
-		Pattern pMetodo = Pattern.compile(PADRAOMETODOS);
+		Pattern pMetodo = Pattern.compile(PADRAOMETODOSC);
 		Matcher m = pMetodo.matcher(linha);
 
 		while (m.find()) {
@@ -132,7 +136,7 @@ public class Leitor {
 
 			}
 		} catch (FileNotFoundException e) {
-			Interface.mensagem("NÃ£o foi possivel encontrar o arquivo");
+			Interface.mensagem("Não foi possivel encontrar o arquivo");
 		}
 
 		// Transforma uma lista em um File[]:
@@ -151,7 +155,7 @@ public class Leitor {
 		List<File> arquivos = new ArrayList<>();
 
 		for (int i = 0; i < listaArquivos.length; i++) {
-			if (listaArquivos[i].getName().endsWith(".java")) {
+			if (listaArquivos[i].getName().endsWith(C)) {
 				arquivos.add(listaArquivos[i]);
 			}
 		}
